@@ -77,8 +77,8 @@ def BuscarAStar(grafo, heuristica, start, end):
 
 # Se verifica si el nodo vecino debe ser agregado a los nodos abiertos
 def AgregarAbiertos(nodosAbiertos, nodoVecino):
-	for node in nodosAbiertos:
-		if (nodoVecino == node and nodoVecino.f > node.f):
+	for nodo in nodosAbiertos:
+		if (nodoVecino == nodo and nodoVecino.f > nodo.f):
 			return False
 
 	return True
