@@ -72,6 +72,7 @@ def BuscarAStar(grafo, heuristica, nombreInicio, nombreFin):
 			# Costo total f(n) = g(n) + h(n)
 			# [DISTANCIA, ESTADO CARRETERA, PELIGROSIDAD]
 			nodoVecino.g = nodoActual.g + grafo.Obtener(nodoActual.nombre, nodoVecino.nombre)[0]
+			print(nodoVecino.nombre)
 			nodoVecino.h = heuristica.get(nodoVecino.nombre)
 			nodoVecino.f = nodoVecino.g + nodoVecino.h
 
@@ -110,26 +111,24 @@ def main():
 
 	grafo.CrearArista("Dobreta", "Craiova", [120, 7, 3])
 
-	grafo.CrearArista("Craiova", "Vilcea", [146, 8, 1])
+	grafo.CrearArista("Craiova", "Rimnicu Vilcea", [146, 8, 1])
 	grafo.CrearArista("Craiova", "Pitesti", [138, 6, 4])
 
-	grafo.CrearArista("Pitesti", "Vilcea", [97, 7, 2])
+	grafo.CrearArista("Pitesti", "Rimnicu Vilcea", [97, 7, 2])
 
 	grafo.CrearArista("Sibiu", "Fagaras", [99, 7, 2])
-        grafo.CrearArista("Sibiu", "Vilcea", [80, 6, 2])
+	grafo.CrearArista("Sibiu", "Rimnicu Vilcea", [80, 6, 2])
 
-        grafo.CrearArista("Neamt", "Iasi", [87, 5, 3])
-        grafo.CrearArista("Iasi", "Vaslui", [92, 7, 4])
-        grafo.CrearArista("Vaslui", "Urziceni", [142, 5, 2])
-        grafo.CrearArista("Urziceni", "Hirsova", [98, 7, 4])
-        grafo.CrearArista("Hirsova", "Eforie", [86, 7, 3])
+	grafo.CrearArista("Neamt", "Iasi", [87, 5, 3])
+	grafo.CrearArista("Iasi", "Vaslui", [92, 7, 4])
+	grafo.CrearArista("Vaslui", "Urziceni", [142, 5, 2])
+	grafo.CrearArista("Urziceni", "Hirsova", [98, 7, 4])
+	grafo.CrearArista("Hirsova", "Eforie", [86, 7, 3])
 
 	grafo.CrearArista("Pitesti", "Bucharest", [101, 8, 1])
 	grafo.CrearArista("Fagaras", "Bucharest", [211, 8, 3])
 	grafo.CrearArista("Urziceni", "Bucharest", [85, 9, 2])
 	grafo.CrearArista("Giorgiu", "Bucharest", [90, 8, 1])
-
-	grafo.CrearArista("Bucharest", "Giurgiu", [90, 8, 1])
 
 	# Se hace el grafo no dirigido
 	#grafo.HacerNoDirigido()
@@ -137,9 +136,9 @@ def main():
 	# Heuristica de la distancia en linea recta
 	distLineaRecta = {}
 
-	# Lineas rectas de Rumania, hacia Bucarest
+	# Lineas rectas de Rumania, hacia Bucharest
 	distLineaRecta["Arad"] = 366
-	distLineaRecta["Bucarest"] = 0
+	distLineaRecta["Bucharest"] = 0
 	distLineaRecta["Craiova"] = 160
 	distLineaRecta["Dobreta"] = 242
 	distLineaRecta["Eforie"] = 161
@@ -159,7 +158,7 @@ def main():
 	distLineaRecta["Vaslui"] = 199
 	distLineaRecta["Zerind"] = 374
 
-	path = BuscarAStar(grafo, distLineaRecta, "Eforie", "Bucarest")
+	path = BuscarAStar(grafo, distLineaRecta, "Mehadia", "Bucharest")
 	print(path)
 	print()
 	#print(grafo.grafoDict)
