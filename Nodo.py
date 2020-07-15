@@ -18,9 +18,9 @@ class Nodo:
 	def __init__(self, nombre:str, padre:str):
 		self.nombre = nombre
 		self.padre = padre
-		self.g = 0 # Distance to start node
-		self.h = 0 # Distance to goal node
-		self.f = 0 # Total cost
+		self.g = 0 # Distancia que lleva desde el nodo inicio
+		self.h = 0 # Distancia hacia el nodo meta
+		self.f = 0 # Costo total
 
 	# Se hace override de los operadores basicos
 	def __eq__(self, other):
