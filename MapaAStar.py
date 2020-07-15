@@ -43,11 +43,18 @@ def BuscarAStar(grafo, heuristica, nombreInicio, nombreFin):
 		# Se verifica si ya se llego al nodo buscado
 		if ( nodoActual == nodoMeta ):
 			path = []
+			total = 0
 			while ( nodoActual != nodoInicio ):
-				path.append(nodoActual.nombre + ':' + str(nodoActual.g))
+				#path.append(nodoActual.nombre + ':' + str(nodoActual.g))
+				path.append(nodoActual.nombre + ':' + str(nodoActual.f))
+				total += nodoActual.f
 				nodoActual = nodoActual.padre
-
-			path.append(nodoInicio.nombre + ':' + str(nodoInicio.g))
+				
+			#path.append(nodoInicio.nombre + ':' + str(nodoInicio.g))
+			path.append(nodoInicio.nombre + ':' + str(nodoInicio.f))
+			total += nodoInicio.f
+			path.append("Total:"+str(total))
+			
 			# Se retorna la ruta (inicio > fin)
 			return path[::-1]
 
@@ -63,6 +70,7 @@ def BuscarAStar(grafo, heuristica, nombreInicio, nombreFin):
 				continue
 
 			# Costo total f(n) = g(n) + h(n)
+			# [DISTANCIA, ESTADO CARRETERA, PELIGROSIDAD]
 			nodoVecino.g = nodoActual.g + grafo.Obtener(nodoActual.nombre, nodoVecino.nombre)[0]
 			nodoVecino.h = heuristica.get(nodoVecino.nombre)
 			nodoVecino.f = nodoVecino.g + nodoVecino.h
@@ -87,7 +95,7 @@ def main():
 	# Se creaa grafo no dirigido (misma distancia entre conexion de nodos)
 	grafo = Grafo(dirigido=False)
 
-	# Se crean las conexiones de los nodos
+	# Se crean las conexiones de los nodos [DISTANCIA, ESTADO CARRETERA, PELIGROSIDAD]
 	grafo.CrearArista('Frankfurt', 'Wurzburg', [111])
 	grafo.CrearArista('Frankfurt', 'Mannheim', [85])
 	grafo.CrearArista('Wurzburg', 'Nurnberg', [104])
@@ -135,6 +143,28 @@ def main():
 	distLineaRecta['Wurzburg'] = 153
 	distLineaRecta['Zurich'] = 157
 	distLineaRecta['Ulm'] = 0
+
+	# Lineas rectas de Rumania, hacia Bucarest
+	distLineaRecta["Arad"] = 366
+	distLineaRecta["Bucarest"] = 0
+	distLineaRecta["Craiova"] = 160
+	distLineaRecta["Dobreta"] = 242
+	distLineaRecta["Eforie"] = 161
+	distLineaRecta["Fagaras"] = 176
+	distLineaRecta["Giorgiu"] = 77
+	distLineaRecta["Hirsova"] = 151
+	distLineaRecta["Iasi"] = 226
+	distLineaRecta["Lugoj"] = 244
+	distLineaRecta["Mehadia"] = 241
+	distLineaRecta["Neamt"] = 234
+	distLineaRecta["Oradea"] = 380
+	distLineaRecta["Pitesti"] = 100
+	distLineaRecta["Rimnicu Vilcea"] = 193
+	distLineaRecta["Sibiu"] = 253
+	distLineaRecta["Timisoara"] = 329
+	distLineaRecta["Urziceni"] = 80
+	distLineaRecta["Vaslui"] = 199
+	distLineaRecta["Zerind"] = 374
 
 	path = BuscarAStar(grafo, distLineaRecta, 'Basel', 'Ulm')
 	print(path)
