@@ -43,17 +43,15 @@ def BuscarAStar(grafo, heuristica, nombreInicio, nombreFin):
 		# Se verifica si ya se llego al nodo buscado
 		if ( nodoActual == nodoMeta ):
 			path = []
-			total = 0
+			total = nodoActual.f
 			while ( nodoActual != nodoInicio ):
 				#path.append(nodoActual.nombre + ':' + str(nodoActual.g))
-				path.append(nodoActual.nombre + ':' + str(nodoActual.f))
-				total += nodoActual.f
+				path.append([nodoActual.nombre , nodoActual.f])
 				nodoActual = nodoActual.padre
 				
 			#path.append(nodoInicio.nombre + ':' + str(nodoInicio.g))
-			path.append(nodoInicio.nombre + ':' + str(nodoInicio.f))
-			total += nodoInicio.f
-			path.append("Total:"+str(total))
+			path.append([nodoInicio.nombre, nodoInicio.f])
+			path.append(["Total:", total])
 
 			# Se retorna la ruta (inicio > fin)
 			return path[::-1]
@@ -71,9 +69,13 @@ def BuscarAStar(grafo, heuristica, nombreInicio, nombreFin):
 
 			# Costo total f(n) = g(n) + h(n)
 			# [DISTANCIA, ESTADO CARRETERA, PELIGROSIDAD]
-			nodoVecino.g = nodoActual.g + grafo.Obtener(nodoActual.nombre, nodoVecino.nombre)[0]
-			print(nodoVecino.nombre)
-			nodoVecino.h = heuristica.get(nodoVecino.nombre)
+			distancia = grafo.Obtener(nodoActual.nombre, nodoVecino.nombre)[0]
+			estadoCarretera = grafo.Obtener(nodoActual.nombre, nodoVecino.nombre)[1]
+			peligrosidad = grafo.Obtener(nodoActual.nombre, nodoVecino.nombre)[2]
+
+			nodoVecino.g = nodoActual.g + distancia
+			# nodoVecino.h = heuristica.get(nodoVecino.nombre)
+			nodoVecino.h = abs( h(distancia, estadoCarretera, peligrosidad) )
 			nodoVecino.f = nodoVecino.g + nodoVecino.h
 
 			# Se verifica si el nodo vecino esta en nodos abierto y si tiene valor menor
@@ -91,6 +93,14 @@ def AgregarAbiertos(nodosAbiertos, nodoVecino):
 			return False
 
 	return True
+
+# Definicion de la funcion heuristica
+def h(distancia, calle, peligrosidad):
+	return int( distancia * ( 2*(peligrosidad/5)/3 - (calle/10)/3) )
+
+# Definicion de la funcion heuristica (alternativa)
+def h2(distancia, calle, peligrosidad):
+	return int( distancia * ( (distancia/400)/4 + 2*(peligrosidad/5)/4 - (calle/10)/4) )
 
 def main():
 	# Se creaa grafo no dirigido (misma distancia entre conexion de nodos)
@@ -130,9 +140,6 @@ def main():
 	grafo.CrearArista("Urziceni", "Bucharest", [85, 9, 2])
 	grafo.CrearArista("Giorgiu", "Bucharest", [90, 8, 1])
 
-	# Se hace el grafo no dirigido
-	#grafo.HacerNoDirigido()
-
 	# Heuristica de la distancia en linea recta
 	distLineaRecta = {}
 
@@ -159,8 +166,16 @@ def main():
 	distLineaRecta["Zerind"] = 374
 
 	path = BuscarAStar(grafo, distLineaRecta, "Mehadia", "Bucharest")
-	print(path)
-	print()
-	#print(grafo.grafoDict)
+	if ( path != None ):
+		temp = "\nInicio > "
+		total = path[0]
+		for i in range(1, len(path)):
+			temp += f'{path[i][0]} ({path[i][1]} km) > '
 
+		temp += f'Meta\nTotal > {total[1]} km\n'
+		print(temp)
+
+	else:
+		print("No hay ruta disponible")
+		
 main()
