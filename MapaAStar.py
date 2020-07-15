@@ -54,7 +54,7 @@ def BuscarAStar(grafo, heuristica, nombreInicio, nombreFin):
 			path.append(nodoInicio.nombre + ':' + str(nodoInicio.f))
 			total += nodoInicio.f
 			path.append("Total:"+str(total))
-			
+
 			# Se retorna la ruta (inicio > fin)
 			return path[::-1]
 
@@ -96,53 +96,23 @@ def main():
 	grafo = Grafo(dirigido=False)
 
 	# Se crean las conexiones de los nodos [DISTANCIA, ESTADO CARRETERA, PELIGROSIDAD]
-	grafo.CrearArista('Frankfurt', 'Wurzburg', [111])
-	grafo.CrearArista('Frankfurt', 'Mannheim', [85])
-	grafo.CrearArista('Wurzburg', 'Nurnberg', [104])
-	grafo.CrearArista('Wurzburg', 'Stuttgart', [140])
-	grafo.CrearArista('Wurzburg', 'Ulm', [183])
-	grafo.CrearArista('Mannheim', 'Nurnberg', [230])
-	grafo.CrearArista('Mannheim', 'Karlsruhe', [67])
-	grafo.CrearArista('Karlsruhe', 'Basel', [191])
-	grafo.CrearArista('Karlsruhe', 'Stuttgart', [64])
-	grafo.CrearArista('Nurnberg', 'Ulm', [171])
-	grafo.CrearArista('Nurnberg', 'Munchen', [170])
-	grafo.CrearArista('Nurnberg', 'Passau', [220])
-	grafo.CrearArista('Stuttgart', 'Ulm', [107])
-	grafo.CrearArista('Basel', 'Bern', [91])
-	grafo.CrearArista('Basel', 'Zurich', [85])
-	grafo.CrearArista('Bern', 'Zurich', [120])
-	grafo.CrearArista('Zurich', 'Memmingen', [184])
-	grafo.CrearArista('Memmingen', 'Ulm', [55])
-	grafo.CrearArista('Memmingen', 'Munchen', [115])
-	grafo.CrearArista('Munchen', 'Ulm', [123])
-	grafo.CrearArista('Munchen', 'Passau', [189])
-	grafo.CrearArista('Munchen', 'Rosenheim', [59])
-	grafo.CrearArista('Rosenheim', 'Salzburg', [81])
-	grafo.CrearArista('Passau', 'Linz', [102])
-	grafo.CrearArista('Salzburg', 'Linz', [126])
+	grafo.CrearArista("Oradea", "Sibiu", [151, 6, 3])
+	grafo.CrearArista("Oradea", "Zerind", [71, 6, 4])
+	grafo.CrearArista("Zerind", "Arad", [75, 6, 5])
+
+	grafo.CrearArista("Eforie", "Hirsova", [86, 7, 3])
+	grafo.CrearArista("Hirsova", "Urziceni", [98, 7, 4])
+	
+	grafo.CrearArista("Pitesti", "Bucarest", [101, 8, 1])
+	grafo.CrearArista("Fagaras", "Bucarest", [211, 8, 3])
+	grafo.CrearArista("Urziceni", "Bucarest", [85, 9, 2])
+	grafo.CrearArista("Giorgiu", "Bucarest", [90, 8, 1])
 
 	# Se hace el grafo no dirigido
 	#grafo.HacerNoDirigido()
 
 	# Heuristica de la distancia en linea recta
 	distLineaRecta = {}
-	distLineaRecta['Basel'] = 204
-	distLineaRecta['Bern'] = 247
-	distLineaRecta['Frankfurt'] = 215
-	distLineaRecta['Karlsruhe'] = 137
-	distLineaRecta['Linz'] = 318
-	distLineaRecta['Mannheim'] = 164
-	distLineaRecta['Munchen'] = 120
-	distLineaRecta['Memmingen'] = 47
-	distLineaRecta['Nurnberg'] = 132
-	distLineaRecta['Passau'] = 257
-	distLineaRecta['Rosenheim'] = 168
-	distLineaRecta['Stuttgart'] = 75
-	distLineaRecta['Salzburg'] = 236
-	distLineaRecta['Wurzburg'] = 153
-	distLineaRecta['Zurich'] = 157
-	distLineaRecta['Ulm'] = 0
 
 	# Lineas rectas de Rumania, hacia Bucarest
 	distLineaRecta["Arad"] = 366
@@ -166,7 +136,7 @@ def main():
 	distLineaRecta["Vaslui"] = 199
 	distLineaRecta["Zerind"] = 374
 
-	path = BuscarAStar(grafo, distLineaRecta, 'Basel', 'Ulm')
+	path = BuscarAStar(grafo, distLineaRecta, "Eforie", "Bucarest")
 	print(path)
 	print()
 	#print(grafo.grafoDict)
