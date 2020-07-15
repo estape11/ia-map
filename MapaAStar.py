@@ -98,15 +98,38 @@ def main():
 	# Se crean las conexiones de los nodos [DISTANCIA, ESTADO CARRETERA, PELIGROSIDAD]
 	grafo.CrearArista("Oradea", "Sibiu", [151, 6, 3])
 	grafo.CrearArista("Oradea", "Zerind", [71, 6, 4])
+	
 	grafo.CrearArista("Zerind", "Arad", [75, 6, 5])
 
-	grafo.CrearArista("Eforie", "Hirsova", [86, 7, 3])
-	grafo.CrearArista("Hirsova", "Urziceni", [98, 7, 4])
-	
-	grafo.CrearArista("Pitesti", "Bucarest", [101, 8, 1])
-	grafo.CrearArista("Fagaras", "Bucarest", [211, 8, 3])
-	grafo.CrearArista("Urziceni", "Bucarest", [85, 9, 2])
-	grafo.CrearArista("Giorgiu", "Bucarest", [90, 8, 1])
+	grafo.CrearArista("Arad", "Sibiu", [140, 5, 4])
+	grafo.CrearArista("Arad", "Timisoara", [118, 5, 3])
+
+	grafo.CrearArista("Timisoara", "Lugoj", [111, 6, 3])
+	grafo.CrearArista("Lugoj", "Mehadia", [70, 4, 4])
+	grafo.CrearArista("Mehadia", "Dobreta", [75, 4, 3])
+
+	grafo.CrearArista("Dobreta", "Craiova", [120, 7, 3])
+
+	grafo.CrearArista("Craiova", "Vilcea", [146, 8, 1])
+	grafo.CrearArista("Craiova", "Pitesti", [138, 6, 4])
+
+	grafo.CrearArista("Pitesti", "Vilcea", [97, 7, 2])
+
+	grafo.CrearArista("Sibiu", "Fagaras", [99, 7, 2])
+        grafo.CrearArista("Sibiu", "Vilcea", [80, 6, 2])
+
+        grafo.CrearArista("Neamt", "Iasi", [87, 5, 3])
+        grafo.CrearArista("Iasi", "Vaslui", [92, 7, 4])
+        grafo.CrearArista("Vaslui", "Urziceni", [142, 5, 2])
+        grafo.CrearArista("Urziceni", "Hirsova", [98, 7, 4])
+        grafo.CrearArista("Hirsova", "Eforie", [86, 7, 3])
+
+	grafo.CrearArista("Pitesti", "Bucharest", [101, 8, 1])
+	grafo.CrearArista("Fagaras", "Bucharest", [211, 8, 3])
+	grafo.CrearArista("Urziceni", "Bucharest", [85, 9, 2])
+	grafo.CrearArista("Giorgiu", "Bucharest", [90, 8, 1])
+
+	grafo.CrearArista("Bucharest", "Giurgiu", [90, 8, 1])
 
 	# Se hace el grafo no dirigido
 	#grafo.HacerNoDirigido()
