@@ -18,13 +18,13 @@ from Grafo import Grafo
 from Nodo import Nodo
 
 # Busqueda A*
-def BuscarAStar(grafo, heuristica, start, end):
+def BuscarAStar(grafo, heuristica, nombreInicio, nombreFin):
 	# Lista de los nodos evaludados
 	nodosAbiertos = []
 	nodosCerrados = []
 
-	nodoInicio = Nodo(start, None)
-	nodoMeta = Nodo(end, None)
+	nodoInicio = Nodo(nombreInicio, None)
+	nodoMeta = Nodo(nombreFin, None)
 
 	# Se agrega nodo de incio a los abiertos
 	nodosAbiertos.append(nodoInicio)
