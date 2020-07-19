@@ -9,7 +9,7 @@
 	Lenguaje: Python
 	Version: 0.10
 	Ultima Modificacion: 14/07/2020
-	Descripcion:	
+	Descripcion:
 					Programa Principal
 *******************************************************************
 """
@@ -47,11 +47,11 @@ def BuscarAStar(grafo, heuristica, nombreInicio, nombreFin):
             path = []
             total = nodoActual.f
             while (nodoActual != nodoInicio):
-                #path.append(nodoActual.nombre + ':' + str(nodoActual.g))
+                # path.append(nodoActual.nombre + ':' + str(nodoActual.g))
                 path.append([nodoActual.nombre, nodoActual.f])
                 nodoActual = nodoActual.padre
 
-            #path.append(nodoInicio.nombre + ':' + str(nodoInicio.g))
+            # path.append(nodoInicio.nombre + ':' + str(nodoInicio.g))
             path.append([nodoInicio.nombre, nodoInicio.f])
             path.append(["Total:", total])
 
@@ -104,7 +104,12 @@ def AgregarAbiertos(nodosAbiertos, nodoVecino):
 
 
 def cost(distancia, calle, peligrosidad):
-    return int(distancia * (2*(peligrosidad - 1/4)/3 - (10 - calle/9)/3 + 1))
+    ip = (peligrosidad - 1)/4
+    iec = (10 - calle)/9
+    igc = 2*ip/3 + iec/3
+    cn = int(distancia * (igc + 1))
+    print(cn)
+    return cn
 
 # Definición de la función de costo (alternativa 1)
 
