@@ -56,6 +56,7 @@ def BuscarAStar(grafo, heuristica, nombreInicio, nombreFin):
             path.append(["Total:", total])
 
             # Se retorna la ruta (inicio > fin)
+            #print(path)
             return path[::-1]
 
         # Se obtinene vecinos
@@ -69,20 +70,25 @@ def BuscarAStar(grafo, heuristica, nombreInicio, nombreFin):
             if (nodoVecino in nodosCerrados):
                 continue
 
+            
+            #print( "nodoActual>", nodoActual.nombre, nodoVecino.g, nodoVecino.f)
+ 
+
             # Costo total f(n) = g(n) + h(n)
             # [DISTANCIA, ESTADO CARRETERA, PELIGROSIDAD]
             distancia = grafo.Obtener(nodoActual.nombre, nodoVecino.nombre)[0]
-            distanciaLineaRecta = heuristica.get(nodoVecino.nombre)
-
             estadoCarretera = grafo.Obtener(
                 nodoActual.nombre, nodoVecino.nombre)[1]
             peligrosidad = grafo.Obtener(
                 nodoActual.nombre, nodoVecino.nombre)[2]
+            distanciaLineaRecta = heuristica.get(nodoVecino.nombre)
 
-            nodoVecino.g = nodoActual.g + distanciaLineaRecta
+            nodoVecino.g = nodoActual.g + abs(cost(distancia, estadoCarretera, peligrosidad))
             # nodoVecino.h = heuristica.get(nodoVecino.nombre)
-            nodoVecino.h = abs(cost(distancia, estadoCarretera, peligrosidad))
+            nodoVecino.h = distanciaLineaRecta
             nodoVecino.f = nodoVecino.g + nodoVecino.h
+
+            #print( "nodoVecino ", nodoVecino.nombre, nodoVecino.g, nodoVecino.f)
 
             # Se verifica si el nodo vecino esta en nodos abierto y si tiene valor menor
             if (AgregarAbiertos(nodosAbiertos, nodoVecino) == True):
@@ -189,7 +195,7 @@ def main():
     distLineaRecta["Vaslui"] = 199
     distLineaRecta["Zerind"] = 374
 
-    path = BuscarAStar(grafo, distLineaRecta, "Neamt", "Bucharest")
+    path = BuscarAStar(grafo, distLineaRecta, "Zerind", "Bucharest")
     if (path != None):
         temp = "\nInicio > "
         total = path[0]
