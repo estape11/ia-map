@@ -73,15 +73,15 @@ def BuscarAStar(grafo, heuristica, nombreInicio, nombreFin):
             # [DISTANCIA, ESTADO CARRETERA, PELIGROSIDAD]
             distancia = grafo.Obtener(nodoActual.nombre, nodoVecino.nombre)[0]
             distanciaLineaRecta = heuristica.get(nodoVecino.nombre)
-            
+
             estadoCarretera = grafo.Obtener(
                 nodoActual.nombre, nodoVecino.nombre)[1]
             peligrosidad = grafo.Obtener(
                 nodoActual.nombre, nodoVecino.nombre)[2]
 
-            nodoVecino.g = nodoActual.g + distancia
+            nodoVecino.g = nodoActual.g + distanciaLineaRecta
             # nodoVecino.h = heuristica.get(nodoVecino.nombre)
-            nodoVecino.h = abs(cost(distanciaLineaRecta, estadoCarretera, peligrosidad))
+            nodoVecino.h = abs(cost(distancia, estadoCarretera, peligrosidad))
             nodoVecino.f = nodoVecino.g + nodoVecino.h
 
             # Se verifica si el nodo vecino esta en nodos abierto y si tiene valor menor
@@ -110,7 +110,7 @@ def cost(distancia, calle, peligrosidad):
     iec = (10 - calle)/9
     igc = 2*ip/3 + iec/3
     cn = int(distancia * (igc + 1))
-    print(cn)
+    #print(cn)
     return cn
 
 # Definición de la función de costo (alternativa 1)
@@ -189,7 +189,7 @@ def main():
     distLineaRecta["Vaslui"] = 199
     distLineaRecta["Zerind"] = 374
 
-    path = BuscarAStar(grafo, distLineaRecta, "Mehadia", "Bucharest")
+    path = BuscarAStar(grafo, distLineaRecta, "Neamt", "Bucharest")
     if (path != None):
         temp = "\nInicio > "
         total = path[0]
