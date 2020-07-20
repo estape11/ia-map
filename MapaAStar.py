@@ -72,6 +72,8 @@ def BuscarAStar(grafo, heuristica, nombreInicio, nombreFin):
             # Costo total f(n) = g(n) + h(n)
             # [DISTANCIA, ESTADO CARRETERA, PELIGROSIDAD]
             distancia = grafo.Obtener(nodoActual.nombre, nodoVecino.nombre)[0]
+            distanciaLineaRecta = heuristica.get(nodoVecino.nombre)
+            
             estadoCarretera = grafo.Obtener(
                 nodoActual.nombre, nodoVecino.nombre)[1]
             peligrosidad = grafo.Obtener(
@@ -79,7 +81,7 @@ def BuscarAStar(grafo, heuristica, nombreInicio, nombreFin):
 
             nodoVecino.g = nodoActual.g + distancia
             # nodoVecino.h = heuristica.get(nodoVecino.nombre)
-            nodoVecino.h = abs(cost(distancia, estadoCarretera, peligrosidad))
+            nodoVecino.h = abs(cost(distanciaLineaRecta, estadoCarretera, peligrosidad))
             nodoVecino.f = nodoVecino.g + nodoVecino.h
 
             # Se verifica si el nodo vecino esta en nodos abierto y si tiene valor menor
